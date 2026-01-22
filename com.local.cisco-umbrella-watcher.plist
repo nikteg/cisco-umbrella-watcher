@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>com.niklas.cisco-umbrella-watcher</string>
+    <string>com.local.cisco-umbrella-watcher</string>
 
     <key>ProgramArguments</key>
     <array>
@@ -17,8 +17,8 @@
     <true/>
 
     <key>StandardOutPath</key>
-    <string>/tmp/com.niklas.cisco-umbrella-watcher.out</string>
+    <string>/tmp/cisco-umbrella-watcher.out</string>
     <key>StandardErrorPath</key>
-    <string>/tmp/com.niklas.cisco-umbrella-watcher.err</string>
+    <string>/tmp/cisco-umbrella-watcher.err</string>
   </dict>
 </plist>
