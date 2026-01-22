@@ -10,16 +10,14 @@ Cisco Umbrella can interfere with local development and certain network configur
 
 - macOS
 - Xcode Command Line Tools (for Swift compiler)
-- Cisco Secure Client with `umbrellactl` installed at `/usr/local/bin/umbrellactl`
-- Passwordless sudo access for `umbrellactl`
+- Cisco Secure Client installed
 
 ## Installation
 
-### 1. Build and install the binary
+### 1. Install umbrellactl
 
 ```bash
-make
-sudo make install
+sudo make install-umbrellactl
 ```
 
 ### 2. Configure passwordless sudo for umbrellactl
@@ -30,7 +28,14 @@ sudo make setup-sudoers
 
 This creates `/etc/sudoers.d/umbrellactl` allowing your user to run `umbrellactl` without a password.
 
-### 3. Install and start the launch agent
+### 3. Build and install the watcher binary
+
+```bash
+make
+sudo make install
+```
+
+### 4. Install and start the launch agent
 
 ```bash
 make install-agent
@@ -48,13 +53,15 @@ Once installed, the agent runs automatically in the background. It will:
 
 | Target | Description |
 |--------|-------------|
-| `make` | Build the binary |
-| `sudo make install` | Install binary to `/usr/local/bin` |
+| `make` | Build the watcher binary |
+| `sudo make install` | Install watcher binary to `/usr/local/bin` |
+| `sudo make install-umbrellactl` | Install umbrellactl to `/usr/local/bin` |
 | `sudo make setup-sudoers` | Configure passwordless sudo for umbrellactl |
 | `make install-agent` | Install and load the launch agent |
 | `make uninstall-agent` | Unload and remove the launch agent |
 | `make restart` | Restart the launch agent |
-| `sudo make uninstall` | Remove binary from `/usr/local/bin` |
+| `sudo make uninstall` | Remove watcher binary from `/usr/local/bin` |
+| `sudo make uninstall-umbrellactl` | Remove umbrellactl from `/usr/local/bin` |
 | `sudo make remove-sudoers` | Remove sudoers configuration |
 | `make clean` | Remove locally built binary |
 
@@ -69,6 +76,7 @@ Logs are written to:
 ```bash
 make uninstall-agent
 sudo make uninstall
+sudo make uninstall-umbrellactl
 sudo make remove-sudoers
 ```
 
