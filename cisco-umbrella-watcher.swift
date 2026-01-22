@@ -43,13 +43,21 @@ func runUmbrellaCtl(_ arg: String) -> Int32 {
 func handleLaunch(of app: NSRunningApplication) {
     guard let bid = app.bundleIdentifier, targetBundleIDs.contains(bid) else { return }
     let rc = runUmbrellaCtl("-e")
-    toast("Cisco Secure Client opened → umbrellactl -e (rc=\(rc))")
+    if rc == 0 {
+        toast("Cisco Secure Client started — Umbrella enabled")
+    } else {
+        toast("Cisco Secure Client started — failed to enable Umbrella")
+    }
 }
 
 func handleTerminate(of app: NSRunningApplication) {
     guard let bid = app.bundleIdentifier, targetBundleIDs.contains(bid) else { return }
     let rc = runUmbrellaCtl("-d")
-    toast("Cisco Secure Client closed → umbrellactl -d (rc=\(rc))")
+    if rc == 0 {
+        toast("Cisco Secure Client closed — Umbrella disabled")
+    } else {
+        toast("Cisco Secure Client closed — failed to disable Umbrella")
+    }
 }
 
 let nc = NSWorkspace.shared.notificationCenter
@@ -68,7 +76,11 @@ nc.addObserver(forName: NSWorkspace.didTerminateApplicationNotification, object:
 for app in NSWorkspace.shared.runningApplications {
     if let bid = app.bundleIdentifier, targetBundleIDs.contains(bid) {
         let rc = runUmbrellaCtl("-e")
-        toast("Cisco Secure Client already running → umbrellactl -e (rc=\(rc))")
+        if rc == 0 {
+            toast("Cisco Secure Client running — Umbrella enabled")
+        } else {
+            toast("Cisco Secure Client running — failed to enable Umbrella")
+        }
         break
     }
 }

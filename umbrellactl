@@ -27,16 +27,14 @@ function verify_plugin_disabled {
 
 # Disable plugin
 function disable_plugin {
-    sudo mkdir -p $PLUGIN_BASE/disabled
-    #sudo mv -f $PLUGIN_BASE/libacumbrellaapi.dylib $PLUGIN_BASE/libacumbrellactrl.dylib $PLUGIN_BASE/libacumbrellaplugin.dylib $PLUGIN_BASE/disabled
-    sudo mv -f $PLUGIN_BASE/libacumbrellaapi.dylib $PLUGIN_BASE/libacumbrellactrl.dylib $PLUGIN_BASE/disabled
+    mkdir -p $PLUGIN_BASE/disabled
+    mv -f $PLUGIN_BASE/libacumbrellaapi.dylib $PLUGIN_BASE/libacumbrellactrl.dylib $PLUGIN_BASE/disabled
 }
 
 # Enable plugin
 function enable_plugin {
-    #sudo mv -f $PLUGIN_BASE/disabled/libacumbrellaapi.dylib $PLUGIN_BASE/disabled/libacumbrellactrl.dylib $PLUGIN_BASE/disabled/libacumbrellaplugin.dylib $PLUGIN_BASE/
-    sudo mv -f $PLUGIN_BASE/disabled/libacumbrellaapi.dylib $PLUGIN_BASE/disabled/libacumbrellactrl.dylib $PLUGIN_BASE/
-    sudo cp /opt/cisco/secureclient/umbrella/data/regionaldata/global/data/OrgInfo.json /opt/cisco/secureclient/umbrella/
+    mv -f $PLUGIN_BASE/disabled/libacumbrellaapi.dylib $PLUGIN_BASE/disabled/libacumbrellactrl.dylib $PLUGIN_BASE/
+    cp /opt/cisco/secureclient/umbrella/data/regionaldata/global/data/OrgInfo.json /opt/cisco/secureclient/umbrella/
 }
 
 case "$1" in
@@ -57,7 +55,8 @@ case "$1" in
     '-d'|'--disable')
         check_status &&
         disable_plugin &&
-        echo Umbrella Roaming Security Module for AnyConnect has been DISABLED. ||
+        echo Umbrella Roaming Security Module for AnyConnect has been DISABLED. &&
+        exit 0 ||
         echo ERROR: Umbrella Roaming Security Module for AnyConnect does not appear to be enabled.
         exit 1
         ;;
